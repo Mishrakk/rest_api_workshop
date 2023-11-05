@@ -1,0 +1,5 @@
+# openapi-generator
+generated/
+
+#npm
+node_modules/

@@ -1,0 +1,133 @@
+openapi: 3.0.3
+info:
+  title: Library system
+  version: 1.0.0
+paths:
+  /rented-books:
+    get:
+      summary: Get all rented books
+      operationId: getRentedBooks
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  items:
+                    type: array
+                    items:
+                      type: object
+                      description: rented book object
+                      properties:
+                        id:
+                          type: string
+                          format: uuid
+                          description: Unique rented book identifier
+                        bookId:
+                          type: string
+                          format: uuid
+                          description: Book identifier
+                        dueDate:
+                          type: string
+                          format: date
+                          description: Rental due date
+  /rented-books/{rentedBookId}:
+    delete:
+      summary: Return a book
+      operationId: returnABook
+      parameters:
+        - name: rentedBookId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        200:
+          description: successful operation
+  /books:
+    get:
+      summary: Get all books in the library
+      operationId: getBooks
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  items: 
+                    type: array
+                    items: 
+                      type: object
+                      description: book object
+                      properties:
+                        id:
+                          type: string
+                          format: uuid
+                          description: Unique book identifier
+                        title:
+                          type: string
+                          description: Book title
+  /books/{bookId}:
+    get:
+      summary: Get book identified by `bookId`
+      operationId: getBookById
+      parameters:
+        - name: bookId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                description: book object
+                properties:
+                  id:
+                    type: string
+                    format: uuid
+                    description: Unique book identifier
+                  title:
+                    type: string
+                    description: Book title
+  /books/{bookId}/rent:
+    post:
+      summary: Rent a book
+      operationId: rentBook
+      parameters:
+        - name: bookId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                description: rented book object
+                properties:
+                  id:
+                    type: string
+                    format: uuid
+                    description: Unique rented book identifier
+                  bookId:
+                    type: string
+                    format: uuid
+                    description: Book identifier
+                  dueDate:
+                    type: string
+                    format: date
+                    description: Rental due date
