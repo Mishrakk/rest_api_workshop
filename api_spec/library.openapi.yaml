@@ -54,9 +54,11 @@ components:
           type: string
           format: uuid
           description: Unique book identifier
+          example: 5d9ff9d5-f71b-4608-bbfd-7cca54a77176
         title:
           type: string
           description: Book title
+          example: Fantastic Mr. Fox
     rentedBook:
       type: object
       description: rented book object
@@ -65,14 +67,17 @@ components:
           type: string
           format: uuid
           description: Unique rented book identifier
+          example: 5ceea7e8-b1f2-4a2b-afab-9d9f9a548e68
         bookId:
           type: string
           format: uuid
           description: Book identifier
+          example: 9fff27cb-3d50-4b10-bea1-b2f33b3e7c14
         dueDate:
           type: string
           format: date
           description: Rental due date
+          example: 2023-12-15
   responses:
     bookFetched:
       description: book fetched
@@ -80,6 +85,9 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/book'
+          example:
+            id: c2085e12-9241-4b4e-87c5-453f52ae4e01
+            title: Matilda
     booksFetched:
       description: books fetched
       content:
@@ -91,6 +99,11 @@ components:
                 type: array
                 items: 
                   $ref: '#/components/schemas/book'
+                example:
+                  - id: 3b05f3e8-2702-430d-b97d-78ec4dcccaa8
+                    title: The Cat in the Hat
+                  - id: fe8b8f9f-ef09-406b-822f-f92eebf4bfe3
+                    title: Matilda
     rentedBookFetched:
       description: rented book fetched
       content:
@@ -117,6 +130,7 @@ components:
       schema:
         type: string
         format: uuid
+        example: a9df16dc-a94a-43ee-b58f-3cb0e60286fc
     rentedBookId:
       name: rentedBookId
       description: unique Id of rented book
@@ -125,3 +139,4 @@ components:
       schema:
         type: string
         format: uuid
+        example: 164ece42-7f9b-49b0-b30f-f14b92d07473
