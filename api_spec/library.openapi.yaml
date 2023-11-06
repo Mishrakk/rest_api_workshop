@@ -78,6 +78,17 @@ components:
           format: date
           description: Rental due date
           example: 2023-12-15
+  examples:
+    bookMatilda:
+      summary: Matilda book example
+      value:
+        id: c2085e12-9241-4b4e-87c5-453f52ae4e01
+        title: Matilda
+    bookTheCatInTheHat:
+      summary: The Cat in the Hat example
+      value:
+        id: 3b05f3e8-2702-430d-b97d-78ec4dcccaa8
+        title: The Cat in the Hat
   responses:
     bookFetched:
       description: book fetched
@@ -85,9 +96,11 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/book'
-          example:
-            id: c2085e12-9241-4b4e-87c5-453f52ae4e01
-            title: Matilda
+          examples:
+            bookMatilda:
+              $ref: '#/components/examples/bookMatilda'
+            bookTheCatInTheHat:
+              $ref: '#/components/examples/bookTheCatInTheHat'
     booksFetched:
       description: books fetched
       content:
