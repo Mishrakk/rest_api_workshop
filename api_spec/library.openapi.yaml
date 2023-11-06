@@ -59,6 +59,26 @@ components:
           type: string
           description: Book title
           example: Fantastic Mr. Fox
+        pages:
+          type: integer
+          format: integer
+          minimum: 1
+          description: Number of pages
+          example: 96
+        published:
+          type: string
+          pattern: '^\d{1-4}$'
+          description: Year of first publication
+          example: '1970'
+        available:
+          type: boolean
+          description: Is the book available for rent
+        tags:
+          type: array
+          items:
+            type: string
+            enum: ['children', 'funny', 'school', 'animal']
+          example: ['funny', 'animal']
     rentedBook:
       type: object
       description: rented book object
@@ -84,11 +104,19 @@ components:
       value:
         id: c2085e12-9241-4b4e-87c5-453f52ae4e01
         title: Matilda
+        pages: 239
+        published: '1988'
+        available: true
+        tags: ['children', 'funny', 'school']
     bookTheCatInTheHat:
       summary: The Cat in the Hat example
       value:
         id: 3b05f3e8-2702-430d-b97d-78ec4dcccaa8
         title: The Cat in the Hat
+        pages: 61
+        published: '1957'
+        available: false
+        tags: ['children', 'funny', 'animal']
   responses:
     bookFetched:
       description: book fetched
@@ -115,8 +143,16 @@ components:
                 example:
                   - id: 3b05f3e8-2702-430d-b97d-78ec4dcccaa8
                     title: The Cat in the Hat
-                  - id: fe8b8f9f-ef09-406b-822f-f92eebf4bfe3
+                    pages: 61
+                    published: '1957'
+                    available: false
+                    tags: ['children', 'funny', 'animal']
+                  - id: c2085e12-9241-4b4e-87c5-453f52ae4e01
                     title: Matilda
+                    pages: 239
+                    published: '1988'
+                    available: true
+                    tags: ['children', 'funny', 'school']
     rentedBookFetched:
       description: rented book fetched
       content:
