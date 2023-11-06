@@ -15,12 +15,7 @@ paths:
       summary: Return a book
       operationId: returnABook
       parameters:
-        - name: rentedBookId
-          in: path
-          required: true
-          schema:
-            type: string
-            format: uuid
+        - $ref: '#/components/parameters/rentedBookId'
       responses:
         200:
           description: book returned
@@ -36,12 +31,7 @@ paths:
       summary: Get book identified by `bookId`
       operationId: getBookById
       parameters:
-        - name: bookId
-          in: path
-          required: true
-          schema:
-            type: string
-            format: uuid
+        - $ref: '#/components/parameters/bookId'
       responses:
         200:
           $ref: '#/components/responses/bookFetched'
@@ -50,12 +40,7 @@ paths:
       summary: Rent a book
       operationId: rentBook
       parameters:
-        - name: bookId
-          in: path
-          required: true
-          schema:
-            type: string
-            format: uuid
+        - $ref: '#/components/parameters/bookId'
       responses:
         200:
           $ref: '#/components/responses/rentedBookFetched'
@@ -123,3 +108,20 @@ components:
                 type: array
                 items:
                   $ref: '#/components/schemas/rentedBook'
+  parameters:
+    bookId:
+      name: bookId
+      description: unique Id of a book in library
+      in: path
+      required: true
+      schema:
+        type: string
+        format: uuid
+    rentedBookId:
+      name: rentedBookId
+      description: unique Id of rented book
+      in: path
+      required: true
+      schema:
+        type: string
+        format: uuid
