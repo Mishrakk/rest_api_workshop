@@ -18,21 +18,7 @@ paths:
                   items:
                     type: array
                     items:
-                      type: object
-                      description: rented book object
-                      properties:
-                        id:
-                          type: string
-                          format: uuid
-                          description: Unique rented book identifier
-                        bookId:
-                          type: string
-                          format: uuid
-                          description: Book identifier
-                        dueDate:
-                          type: string
-                          format: date
-                          description: Rental due date
+                      $ref: '#/components/schemas/rentedBook'
   /rented-books/{rentedBookId}:
     delete:
       summary: Return a book
@@ -62,16 +48,7 @@ paths:
                   items: 
                     type: array
                     items: 
-                      type: object
-                      description: book object
-                      properties:
-                        id:
-                          type: string
-                          format: uuid
-                          description: Unique book identifier
-                        title:
-                          type: string
-                          description: Book title
+                      $ref: '#/components/schemas/book'
   /books/{bookId}:
     get:
       summary: Get book identified by `bookId`
@@ -89,16 +66,7 @@ paths:
           content:
             application/json:
               schema:
-                type: object
-                description: book object
-                properties:
-                  id:
-                    type: string
-                    format: uuid
-                    description: Unique book identifier
-                  title:
-                    type: string
-                    description: Book title
+                $ref: '#/components/schemas/book'
   /books/{bookId}/rent:
     post:
       summary: Rent a book
@@ -116,18 +84,33 @@ paths:
           content:
             application/json:
               schema:
-                type: object
-                description: rented book object
-                properties:
-                  id:
-                    type: string
-                    format: uuid
-                    description: Unique rented book identifier
-                  bookId:
-                    type: string
-                    format: uuid
-                    description: Book identifier
-                  dueDate:
-                    type: string
-                    format: date
-                    description: Rental due date
+                $ref: "#/components/schemas/rentedBook"
+components:
+  schemas:
+    book:
+      type: object
+      description: book object
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: Unique book identifier
+        title:
+          type: string
+          description: Book title
+    rentedBook:
+      type: object
+      description: rented book object
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: Unique rented book identifier
+        bookId:
+          type: string
+          format: uuid
+          description: Book identifier
+        dueDate:
+          type: string
+          format: date
+          description: Rental due date
