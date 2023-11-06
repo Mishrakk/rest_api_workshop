@@ -9,16 +9,7 @@ paths:
       operationId: getRentedBooks
       responses:
         200:
-          description: successful operation
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  items:
-                    type: array
-                    items:
-                      $ref: '#/components/schemas/rentedBook'
+          $ref: '#/components/responses/rentedBooksFetched'
   /rented-books/{rentedBookId}:
     delete:
       summary: Return a book
@@ -32,23 +23,14 @@ paths:
             format: uuid
       responses:
         200:
-          description: successful operation
+          description: book returned
   /books:
     get:
       summary: Get all books in the library
       operationId: getBooks
       responses:
         200:
-          description: successful operation
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  items: 
-                    type: array
-                    items: 
-                      $ref: '#/components/schemas/book'
+          $ref: '#/components/responses/booksFetched'
   /books/{bookId}:
     get:
       summary: Get book identified by `bookId`
@@ -62,11 +44,7 @@ paths:
             format: uuid
       responses:
         200:
-          description: successful operation
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/book'
+          $ref: '#/components/responses/bookFetched'
   /books/{bookId}/rent:
     post:
       summary: Rent a book
@@ -80,11 +58,7 @@ paths:
             format: uuid
       responses:
         200:
-          description: successful operation
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/rentedBook"
+          $ref: '#/components/responses/rentedBookFetched'
 components:
   schemas:
     book:
@@ -114,3 +88,38 @@ components:
           type: string
           format: date
           description: Rental due date
+  responses:
+    bookFetched:
+      description: book fetched
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/book'
+    booksFetched:
+      description: books fetched
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              items: 
+                type: array
+                items: 
+                  $ref: '#/components/schemas/book'
+    rentedBookFetched:
+      description: rented book fetched
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/rentedBook"
+    rentedBooksFetched:
+      description: rented books fetched
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              items:
+                type: array
+                items:
+                  $ref: '#/components/schemas/rentedBook'
