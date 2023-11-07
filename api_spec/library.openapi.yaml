@@ -26,6 +26,17 @@ paths:
       responses:
         200:
           $ref: '#/components/responses/booksFetched'
+    post:
+      summary: Add book to library
+      operationId: addBook
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/book'
+      responses:
+        200:
+          $ref: '#/components/responses/bookFetched'
   /books/{bookId}:
     get:
       summary: Get book identified by `bookId`
@@ -55,6 +66,7 @@ components:
           format: uuid
           description: Unique book identifier
           example: 5d9ff9d5-f71b-4608-bbfd-7cca54a77176
+          readOnly: true
         title:
           type: string
           description: Book title
