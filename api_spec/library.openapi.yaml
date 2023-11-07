@@ -10,7 +10,8 @@ paths:
       responses:
         200:
           $ref: '#/components/responses/rentedBooksFetched'
-
+        default:
+          $ref: '#/components/responses/default'
   /rented-books/{rentedBookId}:
     delete:
       summary: Return a book
@@ -20,6 +21,10 @@ paths:
       responses:
         204:
           description: book returned
+        404:
+          $ref: '#/components/responses/notFound'
+        default:
+          $ref: '#/components/responses/default'
   /books:
     get:
       summary: Get all books in the library
@@ -27,6 +32,8 @@ paths:
       responses:
         200:
           $ref: '#/components/responses/booksFetched'
+        default:
+          $ref: '#/components/responses/default'
     post:
       summary: Add book to library
       operationId: addBook
@@ -38,6 +45,10 @@ paths:
       responses:
         201:
           $ref: '#/components/responses/bookFetched'
+        400:
+          $ref: '#/components/responses/badRequest'
+        default:
+          $ref: '#/components/responses/default'
   /books/{bookId}:
     get:
       summary: Get book identified by `bookId`
@@ -47,6 +58,10 @@ paths:
       responses:
         200:
           $ref: '#/components/responses/bookFetched'
+        404:
+          $ref: '#/components/responses/notFound'
+        default:
+          $ref: '#/components/responses/default'
   /books/{bookId}/rent:
     post:
       summary: Rent a book
@@ -56,6 +71,12 @@ paths:
       responses:
         201:
           $ref: '#/components/responses/rentedBookFetched'
+        400:
+          $ref: '#/components/responses/badRequest'
+        404:
+          $ref: '#/components/responses/notFound'
+        default:
+          $ref: '#/components/responses/default'
 components:
   schemas:
     book:
@@ -131,6 +152,12 @@ components:
         available: false
         tags: ['children', 'funny', 'animal']
   responses:
+    default:
+      description: default response
+    notFound:
+      description: not found
+    badRequest:
+      description: bad request
     bookFetched:
       description: book fetched
       content:
