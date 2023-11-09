@@ -7,6 +7,8 @@ paths:
     get:
       summary: Get all rented books
       operationId: getRentedBooks
+      security:
+        - OpenID: [user]
       responses:
         200:
           $ref: '#/components/responses/rentedBooksFetched'
@@ -16,6 +18,8 @@ paths:
     delete:
       summary: Return a book
       operationId: returnABook
+      security:
+        - OpenID: [user]
       parameters:
         - $ref: '#/components/parameters/rentedBookId'
       responses:
@@ -29,6 +33,7 @@ paths:
     get:
       summary: Get all books in the library
       operationId: getBooks
+      security: []
       responses:
         200:
           $ref: '#/components/responses/booksFetched'
@@ -37,6 +42,9 @@ paths:
     post:
       summary: Add book to library
       operationId: addBook
+      security: 
+        - OpenID: [admin]
+        - BasicAuth: []
       requestBody:
         content:
           application/json:
@@ -53,6 +61,7 @@ paths:
     get:
       summary: Get book identified by `bookId`
       operationId: getBookById
+      security: []
       parameters:
         - $ref: '#/components/parameters/bookId'
       responses:
@@ -66,6 +75,8 @@ paths:
     post:
       summary: Rent a book
       operationId: rentBook
+      security: 
+        - OpenID: [user]
       parameters:
         - $ref: '#/components/parameters/bookId'
       responses:
@@ -243,3 +254,10 @@ components:
         type: string
         format: uuid
         example: 164ece42-7f9b-49b0-b30f-f14b92d07473
+  securitySchemes:
+    BasicAuth:
+      type: http
+      scheme: basic
+    OpenID:
+      type: openIdConnect
+      openIdConnectUrl: https://example.com/openid
