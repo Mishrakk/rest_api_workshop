@@ -2,11 +2,25 @@ openapi: 3.0.3
 info:
   title: Library system
   version: 1.0.0
+tags:
+  - name: bookCatalog
+    description: Operations related to browsing a book catalog
+    externalDocs:
+      url: https://example.com/how-to-search-for-a-book
+  - name: rentals
+    description: Operations related to book rentals
+    externalDocs:
+      url: https://example.com/how-to-rent-a-book
+  - name: admin
+    description: Operations available to library administrators
+    externalDocs:
+      url: https://example.com/admin-operations
 paths:
   /rented-books:
     get:
       summary: Get all rented books
       operationId: getRentedBooks
+      tags: [rentals]
       security:
         - OpenID: [user]
       parameters:
@@ -23,6 +37,7 @@ paths:
     delete:
       summary: Return a book
       operationId: returnABook
+      tags: [rentals]
       security:
         - OpenID: [user]
       parameters:
@@ -38,6 +53,7 @@ paths:
     get:
       summary: Get all books in the library
       operationId: getBooks
+      tags: [bookCatalog]
       security: []
       parameters:
         - $ref: '#/components/parameters/page'
@@ -52,6 +68,7 @@ paths:
     post:
       summary: Add book to library
       operationId: addBook
+      tags: [admin]
       security: 
         - OpenID: [admin]
         - BasicAuth: []
@@ -71,6 +88,7 @@ paths:
     get:
       summary: Get book identified by `bookId`
       operationId: getBookById
+      tags: [bookCatalog]
       security: []
       parameters:
         - $ref: '#/components/parameters/bookId'
@@ -85,6 +103,7 @@ paths:
     post:
       summary: Rent a book
       operationId: rentBook
+      tags: [rentals]
       security: 
         - OpenID: [user]
       parameters:
