@@ -13,6 +13,7 @@ paths:
         - $ref: '#/components/parameters/page'
         - $ref: '#/components/parameters/limit'
         - $ref: '#/components/parameters/sort'
+        - $ref: '#/components/parameters/filter'
       responses:
         200:
           $ref: '#/components/responses/rentedBooksFetched'
@@ -42,6 +43,7 @@ paths:
         - $ref: '#/components/parameters/page'
         - $ref: '#/components/parameters/limit'
         - $ref: '#/components/parameters/sort'
+        - $ref: '#/components/parameters/filter'
       responses:
         200:
           $ref: '#/components/responses/booksFetched'
@@ -291,6 +293,18 @@ components:
           description: name of property to use for sorting. Can be prefixed with `-`, to indicate descending orders
           type: string
       example: id, -pages, title
+    filter:
+      name: filter
+      description: filter by property
+      in: query
+      style: deepObject
+      explode: true
+      schema:
+        type: object
+        additionalProperties: true
+      example: 
+        title: Matilda
+        available: true
   securitySchemes:
     BasicAuth:
       type: http
