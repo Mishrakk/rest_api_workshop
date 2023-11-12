@@ -9,6 +9,9 @@ paths:
       operationId: getRentedBooks
       security:
         - OpenID: [user]
+      parameters:
+        - $ref: '#/components/parameters/page'
+        - $ref: '#/components/parameters/limit'
       responses:
         200:
           $ref: '#/components/responses/rentedBooksFetched'
@@ -34,6 +37,9 @@ paths:
       summary: Get all books in the library
       operationId: getBooks
       security: []
+      parameters:
+        - $ref: '#/components/parameters/page'
+        - $ref: '#/components/parameters/limit'
       responses:
         200:
           $ref: '#/components/responses/booksFetched'
@@ -254,6 +260,23 @@ components:
         type: string
         format: uuid
         example: 164ece42-7f9b-49b0-b30f-f14b92d07473
+    page:
+      name: page
+      description: page of results to show, starts at `1`, defaults to `1`.
+      in: query
+      schema:
+        type: integer
+        default: 1
+        minimum: 1
+    limit:
+      name: limit
+      description: limit of entries per page, defaults to `50`.
+      in: query
+      schema:
+        type: integer
+        default: 50
+        minimum: 1
+        maximum: 100
   securitySchemes:
     BasicAuth:
       type: http
