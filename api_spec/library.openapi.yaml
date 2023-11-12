@@ -12,6 +12,7 @@ paths:
       parameters:
         - $ref: '#/components/parameters/page'
         - $ref: '#/components/parameters/limit'
+        - $ref: '#/components/parameters/sort'
       responses:
         200:
           $ref: '#/components/responses/rentedBooksFetched'
@@ -40,6 +41,7 @@ paths:
       parameters:
         - $ref: '#/components/parameters/page'
         - $ref: '#/components/parameters/limit'
+        - $ref: '#/components/parameters/sort'
       responses:
         200:
           $ref: '#/components/responses/booksFetched'
@@ -277,6 +279,18 @@ components:
         default: 50
         minimum: 1
         maximum: 100
+    sort:
+      name: sort
+      description: sort by list of properties
+      in: query
+      style: form
+      explode: false
+      schema:
+        type: array
+        items:
+          description: name of property to use for sorting. Can be prefixed with `-`, to indicate descending orders
+          type: string
+      example: id, -pages, title
   securitySchemes:
     BasicAuth:
       type: http
