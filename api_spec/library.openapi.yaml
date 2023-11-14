@@ -15,6 +15,17 @@ tags:
     description: Operations available to library administrators
     externalDocs:
       url: https://example.com/admin-operations
+servers:
+  - url: https://library.example.com/api
+    description: Public library server
+  - url: https://test-library.example.com:{port}/api
+    description: Test server
+    variables:
+      port:
+        enum:
+          - '443'
+          - '10443'
+        default: '443'
 paths:
   /rented-books:
     get:
