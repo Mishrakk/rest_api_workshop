@@ -128,44 +128,90 @@ paths:
           $ref: '#/components/responses/notFound'
         default:
           $ref: '#/components/responses/default'
+  /allMediaItems:
+    get:
+      summary: Get all media items in the library
+      operationId: getAllMediaItems
+      tags: [bookCatalog]
+      security: []
+      parameters:
+        - $ref: '#/components/parameters/page'
+        - $ref: '#/components/parameters/limit'
+        - $ref: '#/components/parameters/sort'
+        - $ref: '#/components/parameters/filter'
+      responses:
+        200:
+          $ref: '#/components/responses/allMediaItemsFetched'
+        default:
+          $ref: '#/components/responses/default'
 components:
   schemas:
     problem:
       $ref: 'https://opensource.zalando.com/restful-api-guidelines/models/problem-1.0.1.yaml#/Problem'
-    book:
+    mediaItem:
       type: object
-      description: book object
+      description: abstract media item
       properties:
         id:
           type: string
           format: uuid
-          description: Unique book identifier
+          description: Unique identifier
           example: 5d9ff9d5-f71b-4608-bbfd-7cca54a77176
           readOnly: true
         title:
           type: string
-          description: Book title
+          description: Title of media item
           example: Fantastic Mr. Fox
-        pages:
-          type: integer
-          format: integer
-          minimum: 1
-          description: Number of pages
-          example: 96
-        published:
-          type: string
-          pattern: '^\d{1-4}$'
-          description: Year of first publication
-          example: '1970'
         available:
           type: boolean
-          description: Is the book available for rent
-        tags:
-          type: array
-          items:
-            type: string
-            enum: ['children', 'funny', 'school', 'animal']
-          example: ['funny', 'animal']
+          description: Is the item available for rent
+        media_type:
+          type: string
+          enum: [book, dvd]
+          description: type of media item
+      discriminator:
+        propertyName: media_type
+      required: [id, title, available, media_type]
+    book:
+     allOf:
+        - $ref: '#/components/schemas/mediaItem'
+        - type: object
+          description: book object
+          properties:
+            title:
+              example: Fantastic Mr. Fox
+            pages:
+              type: integer
+              format: integer
+              minimum: 1
+              description: Number of pages
+              example: 96
+            published:
+              type: string
+              pattern: '^\d{1-4}$'
+              description: Year of first publication
+              example: '1970'
+            tags:
+              type: array
+              items:
+                type: string
+                enum: ['children', 'funny', 'school', 'animal']
+              example: ['funny', 'animal']
+    dvd:
+     allOf:
+        - $ref: '#/components/schemas/mediaItem'
+        - type: object
+          description: dvd object
+          properties:
+            title:
+              example: Finding Nemo
+            length:
+              type: integer
+              format: integer
+              minimum: 1
+              description: Length of dvd
+              example: 100
+          required: [length]
     rentedBook:
       type: object
       description: rented book object
@@ -195,6 +241,7 @@ components:
         published: '1988'
         available: true
         tags: ['children', 'funny', 'school']
+        media_type: book
     bookTheCatInTheHat:
       summary: The Cat in the Hat example
       value:
@@ -204,6 +251,7 @@ components:
         published: '1957'
         available: false
         tags: ['children', 'funny', 'animal']
+        media_type: book
   responses:
     default:
       description: default response
@@ -252,12 +300,14 @@ components:
                     published: '1957'
                     available: false
                     tags: ['children', 'funny', 'animal']
+                    media_type: book
                   - id: c2085e12-9241-4b4e-87c5-453f52ae4e01
                     title: Matilda
                     pages: 239
                     published: '1988'
                     available: true
                     tags: ['children', 'funny', 'school']
+                    media_type: book
     rentedBookFetched:
       description: rented book fetched
       content:
@@ -275,6 +325,40 @@ components:
                 type: array
                 items:
                   $ref: '#/components/schemas/rentedBook'
+    allMediaItemsFetched:
+      description: all media items fetched
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              items: 
+                type: array
+                items: 
+                  oneOf:
+                    - $ref: '#/components/schemas/book'
+                    - $ref: '#/components/schemas/dvd'
+                example:
+                  - id: 3b05f3e8-2702-430d-b97d-78ec4dcccaa8
+                    title: The Cat in the Hat
+                    pages: 61
+                    published: '1957'
+                    available: false
+                    tags: ['children', 'funny', 'animal']
+                    media_type: book
+                  - id: c2085e12-9241-4b4e-87c5-453f52ae4e01
+                    title: Matilda
+                    pages: 239
+                    published: '1988'
+                    available: true
+                    tags: ['children', 'funny', 'school']
+                    media_type: book
+                  - id: 4e3c30c0-25d4-4a8a-8590-5b4f41a8a1f7
+                    title: Ratatouille
+                    length: 111
+                    available: true
+                    media_type: dvd
+
   parameters:
     bookId:
       name: bookId
