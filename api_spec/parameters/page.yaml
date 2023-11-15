@@ -1,0 +1,7 @@
+name: page
+description: page of results to show, starts at `1`, defaults to `1`.
+in: query
+schema:
+  type: integer
+  default: 1
+  minimum: 1

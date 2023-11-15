@@ -1,0 +1,8 @@
+name: rentedBookId
+description: unique Id of rented book
+in: path
+required: true
+schema:
+  type: string
+  format: uuid
+  example: 164ece42-7f9b-49b0-b30f-f14b92d07473

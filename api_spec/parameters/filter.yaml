@@ -1,0 +1,11 @@
+name: filter
+description: filter by property
+in: query
+style: deepObject
+explode: true
+schema:
+  type: object
+  additionalProperties: true
+example: 
+  title: Matilda
+  available: true

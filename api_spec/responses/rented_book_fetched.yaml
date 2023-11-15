@@ -1,0 +1,5 @@
+description: rented book fetched
+content:
+  application/json:
+    schema:
+      $ref: '../library.openapi.yaml#/components/schemas/rentedBook'

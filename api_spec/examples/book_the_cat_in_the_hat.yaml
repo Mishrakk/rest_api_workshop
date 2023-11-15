@@ -1,0 +1,9 @@
+summary: The Cat in the Hat example
+value:
+  id: 3b05f3e8-2702-430d-b97d-78ec4dcccaa8
+  title: The Cat in the Hat
+  pages: 61
+  published: '1957'
+  available: false
+  tags: ['children', 'funny', 'animal']
+  media_type: book

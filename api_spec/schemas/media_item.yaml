@@ -1,0 +1,23 @@
+type: object
+description: abstract media item
+properties:
+  id:
+    type: string
+    format: uuid
+    description: Unique identifier
+    example: 5d9ff9d5-f71b-4608-bbfd-7cca54a77176
+    readOnly: true
+  title:
+    type: string
+    description: Title of media item
+    example: Fantastic Mr. Fox
+  available:
+    type: boolean
+    description: Is the item available for rent
+  media_type:
+    type: string
+    enum: [book, dvd]
+    description: type of media item
+discriminator:
+  propertyName: media_type
+required: [id, title, available, media_type]

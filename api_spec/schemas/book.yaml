@@ -1,0 +1,24 @@
+allOf:
+  - $ref: '../library.openapi.yaml#/components/schemas/mediaItem'
+  - type: object
+    description: book object
+    properties:
+      title:
+        example: Fantastic Mr. Fox
+      pages:
+        type: integer
+        format: integer
+        minimum: 1
+        description: Number of pages
+        example: 96
+      published:
+        type: string
+        pattern: '^\d{1-4}$'
+        description: Year of first publication
+        example: '1970'
+      tags:
+        type: array
+        items:
+          type: string
+          enum: ['children', 'funny', 'school', 'animal']
+        example: ['funny', 'animal']

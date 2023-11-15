@@ -1,0 +1,18 @@
+type: object
+description: rented book object
+properties:
+  id:
+    type: string
+    format: uuid
+    description: Unique rented book identifier
+    example: 5ceea7e8-b1f2-4a2b-afab-9d9f9a548e68
+  bookId:
+    type: string
+    format: uuid
+    description: Book identifier
+    example: 9fff27cb-3d50-4b10-bea1-b2f33b3e7c14
+  dueDate:
+    type: string
+    format: date
+    description: Rental due date
+    example: 2023-12-15

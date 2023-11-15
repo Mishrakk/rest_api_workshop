@@ -1,0 +1,9 @@
+summary: Matilda book example
+value:
+  id: c2085e12-9241-4b4e-87c5-453f52ae4e01
+  title: Matilda
+  pages: 239
+  published: '1988'
+  available: true
+  tags: ['children', 'funny', 'school']
+  media_type: book

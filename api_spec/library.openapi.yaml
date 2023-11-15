@@ -149,276 +149,48 @@ components:
     problem:
       $ref: 'https://opensource.zalando.com/restful-api-guidelines/models/problem-1.0.1.yaml#/Problem'
     mediaItem:
-      type: object
-      description: abstract media item
-      properties:
-        id:
-          type: string
-          format: uuid
-          description: Unique identifier
-          example: 5d9ff9d5-f71b-4608-bbfd-7cca54a77176
-          readOnly: true
-        title:
-          type: string
-          description: Title of media item
-          example: Fantastic Mr. Fox
-        available:
-          type: boolean
-          description: Is the item available for rent
-        media_type:
-          type: string
-          enum: [book, dvd]
-          description: type of media item
-      discriminator:
-        propertyName: media_type
-      required: [id, title, available, media_type]
+      $ref: './schemas/media_item.yaml'
     book:
-     allOf:
-        - $ref: '#/components/schemas/mediaItem'
-        - type: object
-          description: book object
-          properties:
-            title:
-              example: Fantastic Mr. Fox
-            pages:
-              type: integer
-              format: integer
-              minimum: 1
-              description: Number of pages
-              example: 96
-            published:
-              type: string
-              pattern: '^\d{1-4}$'
-              description: Year of first publication
-              example: '1970'
-            tags:
-              type: array
-              items:
-                type: string
-                enum: ['children', 'funny', 'school', 'animal']
-              example: ['funny', 'animal']
+      $ref: './schemas/book.yaml'
     dvd:
-     allOf:
-        - $ref: '#/components/schemas/mediaItem'
-        - type: object
-          description: dvd object
-          properties:
-            title:
-              example: Finding Nemo
-            length:
-              type: integer
-              format: integer
-              minimum: 1
-              description: Length of dvd
-              example: 100
-          required: [length]
+      $ref: './schemas/dvd.yaml'
     rentedBook:
-      type: object
-      description: rented book object
-      properties:
-        id:
-          type: string
-          format: uuid
-          description: Unique rented book identifier
-          example: 5ceea7e8-b1f2-4a2b-afab-9d9f9a548e68
-        bookId:
-          type: string
-          format: uuid
-          description: Book identifier
-          example: 9fff27cb-3d50-4b10-bea1-b2f33b3e7c14
-        dueDate:
-          type: string
-          format: date
-          description: Rental due date
-          example: 2023-12-15
+      $ref: './schemas/rented_book.yaml'
   examples:
     bookMatilda:
-      summary: Matilda book example
-      value:
-        id: c2085e12-9241-4b4e-87c5-453f52ae4e01
-        title: Matilda
-        pages: 239
-        published: '1988'
-        available: true
-        tags: ['children', 'funny', 'school']
-        media_type: book
+      $ref: './examples/book_matilda.yaml'
     bookTheCatInTheHat:
-      summary: The Cat in the Hat example
-      value:
-        id: 3b05f3e8-2702-430d-b97d-78ec4dcccaa8
-        title: The Cat in the Hat
-        pages: 61
-        published: '1957'
-        available: false
-        tags: ['children', 'funny', 'animal']
-        media_type: book
+      $ref: './examples/book_the_cat_in_the_hat.yaml'
   responses:
     default:
-      description: default response
-      content:
-        application/problem+json:
-          schema:
-            $ref: '#/components/schemas/problem'
+      $ref: './responses/default.yaml'
     notFound:
-      description: not found
-      content:
-        application/problem+json:
-          schema:
-            $ref: '#/components/schemas/problem'
+      $ref: './responses/not_found.yaml'
     badRequest:
-      description: bad request
-      content:
-        application/problem+json:
-          schema:
-            $ref: '#/components/schemas/problem'
+      $ref: './responses/bad_request.yaml'
     bookFetched:
-      description: book fetched
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/book'
-          examples:
-            bookMatilda:
-              $ref: '#/components/examples/bookMatilda'
-            bookTheCatInTheHat:
-              $ref: '#/components/examples/bookTheCatInTheHat'
+      $ref: './responses/book_fetched.yaml'
     booksFetched:
-      description: books fetched
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              items: 
-                type: array
-                items: 
-                  $ref: '#/components/schemas/book'
-                example:
-                  - id: 3b05f3e8-2702-430d-b97d-78ec4dcccaa8
-                    title: The Cat in the Hat
-                    pages: 61
-                    published: '1957'
-                    available: false
-                    tags: ['children', 'funny', 'animal']
-                    media_type: book
-                  - id: c2085e12-9241-4b4e-87c5-453f52ae4e01
-                    title: Matilda
-                    pages: 239
-                    published: '1988'
-                    available: true
-                    tags: ['children', 'funny', 'school']
-                    media_type: book
+      $ref: './responses/books_fetched.yaml'
     rentedBookFetched:
-      description: rented book fetched
-      content:
-        application/json:
-          schema:
-            $ref: "#/components/schemas/rentedBook"
+      $ref: './responses/rented_book_fetched.yaml'
     rentedBooksFetched:
-      description: rented books fetched
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              items:
-                type: array
-                items:
-                  $ref: '#/components/schemas/rentedBook'
+      $ref: './responses/rented_books_fetched.yaml'
     allMediaItemsFetched:
-      description: all media items fetched
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              items: 
-                type: array
-                items: 
-                  oneOf:
-                    - $ref: '#/components/schemas/book'
-                    - $ref: '#/components/schemas/dvd'
-                example:
-                  - id: 3b05f3e8-2702-430d-b97d-78ec4dcccaa8
-                    title: The Cat in the Hat
-                    pages: 61
-                    published: '1957'
-                    available: false
-                    tags: ['children', 'funny', 'animal']
-                    media_type: book
-                  - id: c2085e12-9241-4b4e-87c5-453f52ae4e01
-                    title: Matilda
-                    pages: 239
-                    published: '1988'
-                    available: true
-                    tags: ['children', 'funny', 'school']
-                    media_type: book
-                  - id: 4e3c30c0-25d4-4a8a-8590-5b4f41a8a1f7
-                    title: Ratatouille
-                    length: 111
-                    available: true
-                    media_type: dvd
-
+      $ref: './responses/all_media_items_fetched.yaml'
   parameters:
     bookId:
-      name: bookId
-      description: unique Id of a book in library
-      in: path
-      required: true
-      schema:
-        type: string
-        format: uuid
-        example: a9df16dc-a94a-43ee-b58f-3cb0e60286fc
+      $ref: './parameters/book_id.yaml'
     rentedBookId:
-      name: rentedBookId
-      description: unique Id of rented book
-      in: path
-      required: true
-      schema:
-        type: string
-        format: uuid
-        example: 164ece42-7f9b-49b0-b30f-f14b92d07473
+      $ref: './parameters/rented_book_id.yaml'
     page:
-      name: page
-      description: page of results to show, starts at `1`, defaults to `1`.
-      in: query
-      schema:
-        type: integer
-        default: 1
-        minimum: 1
+      $ref: './parameters/page.yaml'
     limit:
-      name: limit
-      description: limit of entries per page, defaults to `50`.
-      in: query
-      schema:
-        type: integer
-        default: 50
-        minimum: 1
-        maximum: 100
+      $ref: './parameters/limit.yaml'
     sort:
-      name: sort
-      description: sort by list of properties
-      in: query
-      style: form
-      explode: false
-      schema:
-        type: array
-        items:
-          description: name of property to use for sorting. Can be prefixed with `-`, to indicate descending orders
-          type: string
-      example: id, -pages, title
+      $ref: './parameters/sort.yaml'
     filter:
-      name: filter
-      description: filter by property
-      in: query
-      style: deepObject
-      explode: true
-      schema:
-        type: object
-        additionalProperties: true
-      example: 
-        title: Matilda
-        available: true
+      $ref: './parameters/filter.yaml'
   securitySchemes:
     BasicAuth:
       type: http

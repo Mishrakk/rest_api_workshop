@@ -1,0 +1,8 @@
+name: bookId
+description: unique Id of a book in library
+in: path
+required: true
+schema:
+  type: string
+  format: uuid
+  example: a9df16dc-a94a-43ee-b58f-3cb0e60286fc

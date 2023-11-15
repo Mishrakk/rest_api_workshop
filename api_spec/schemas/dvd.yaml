@@ -1,0 +1,14 @@
+allOf:
+  - $ref: '../library.openapi.yaml#/components/schemas/mediaItem'
+  - type: object
+    description: dvd object
+    properties:
+      title:
+        example: Finding Nemo
+      length:
+        type: integer
+        format: integer
+        minimum: 1
+        description: Length of dvd
+        example: 100
+    required: [length]

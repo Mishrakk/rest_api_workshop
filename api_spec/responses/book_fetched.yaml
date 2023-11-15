@@ -1,0 +1,10 @@
+description: book fetched
+content:
+  application/json:
+    schema:
+      $ref: '../library.openapi.yaml#/components/schemas/book'
+    examples:
+      bookMatilda:
+        $ref: '../library.openapi.yaml#/components/examples/bookMatilda'
+      bookTheCatInTheHat:
+        $ref: '../library.openapi.yaml#/components/examples/bookTheCatInTheHat'

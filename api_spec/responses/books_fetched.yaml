@@ -1,0 +1,25 @@
+description: books fetched
+content:
+  application/json:
+    schema:
+      type: object
+      properties:
+        items: 
+          type: array
+          items: 
+            $ref: '../library.openapi.yaml#/components/schemas/book'
+          example:
+            - id: 3b05f3e8-2702-430d-b97d-78ec4dcccaa8
+              title: The Cat in the Hat
+              pages: 61
+              published: '1957'
+              available: false
+              tags: ['children', 'funny', 'animal']
+              media_type: book
+            - id: c2085e12-9241-4b4e-87c5-453f52ae4e01
+              title: Matilda
+              pages: 239
+              published: '1988'
+              available: true
+              tags: ['children', 'funny', 'school']
+              media_type: book
