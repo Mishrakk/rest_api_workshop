@@ -5,3 +5,9 @@ content:
       $ref: '../library.openapi.yaml#/components/schemas/rentedBook'
 headers:
   $ref: '../library.openapi.yaml#/components/headers/ETag'
+links:
+  returnBook:
+    operationId: returnABook
+    parameters: 
+      rentedBookId: '$response.body#/id'
+    description: Return book back to library

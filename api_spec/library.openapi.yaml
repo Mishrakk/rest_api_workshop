@@ -27,6 +27,15 @@ servers:
           - '10443'
         default: '443'
 paths:
+  /:
+    get:
+      summary: Get possible operations from the root level
+      operationId: rootLevel
+      responses:
+        200:
+          $ref: '#/components/responses/rootLevel'
+        default:
+          $ref: '#/components/responses/default'
   /rented-books:
     get:
       summary: Get all rented books
@@ -235,6 +244,8 @@ components:
       $ref: './responses/author_fetched.yaml'
     authorsFetched:
       $ref: './responses/authors_fetched.yaml'
+    rootLevel:
+      $ref: './responses/root_level.yaml'
   parameters:
     bookId:
       $ref: './parameters/book_id.yaml'

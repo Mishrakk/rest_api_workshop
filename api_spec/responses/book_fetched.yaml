@@ -9,4 +9,9 @@ content:
       bookTheCatInTheHat:
         $ref: '../library.openapi.yaml#/components/examples/bookTheCatInTheHat'
 headers:
-  $ref: '../library.openapi.yaml#/components/headers/ETag'        
+  $ref: '../library.openapi.yaml#/components/headers/ETag'
+links:
+  rentBook:
+    operationId: rentBook
+    parameters:
+      bookId: '$response.body#/id'

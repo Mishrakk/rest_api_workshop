@@ -30,5 +30,55 @@ content:
               length: 111
               available: true
               media_type: dvd
+        _metadata:
+          type: object
+          properties:
+            currentPage:
+              type: integer
+              example: 2
+            currentLimit:
+              type: integer
+              example: 10
+            nextPage:
+              type: integer
+              description: null if current page is the last page
+              example: 3
+            previousPage:
+              type: integer
+              description: null if current page is the first page
+              example: 1
+            firstPage:
+              type: integer
+              example: 1
+            lastPage:
+              type: integer
+              example: 20
+          required: [currentPage, currentLimit, firstPage, lastPage]
 headers:
-  $ref: '../library.openapi.yaml#/components/headers/ETag'              
+  $ref: '../library.openapi.yaml#/components/headers/ETag'
+links:
+  nextPage:
+    operationId: getAllMediaItems
+    parameters:
+      page: '$response.body#/_metadata/nextPage'
+      limit: '$response.body#/_metadata/currentLimit'
+  previousPage:
+    operationId: getAllMediaItems
+    parameters:
+      page: '$response.body#/_metadata/previousPage'
+      limit: '$response.body#/_metadata/currentLimit'
+  firstPage:
+    operationId: getAllMediaItems
+    parameters:
+      page: '$response.body#/_metadata/firstPage'
+      limit: '$response.body#/_metadata/currentLimit'
+  lastPage:
+    operationId: getAllMediaItems
+    parameters:
+      page: '$response.body#/_metadata/lastPage'
+      limit: '$response.body#/_metadata/currentLimit'
+  currentPage:
+    operationId: getAllMediaItems
+    parameters:
+      page: '$response.body#/_metadata/currentPage'
+      limit: '$response.body#/_metadata/currentLimit'

@@ -1,0 +1,8 @@
+description: Root level response, provides starting point for API discovery
+links:
+  browseBookCatalog:
+    operationId: getBooks
+  browseRentedBooks:
+    operationId: getRentedBooks
+  browseAllMedia:
+    operationId: getAllMediaItems

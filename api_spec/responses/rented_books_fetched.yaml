@@ -8,5 +8,60 @@ content:
           type: array
           items:
             $ref: '../library.openapi.yaml#/components/schemas/rentedBook'
+        _metadata:
+          type: object
+          properties:
+            currentPage:
+              type: integer
+              example: 2
+            currentLimit:
+              type: integer
+              example: 10
+            nextPage:
+              type: integer
+              description: null if current page is the last page
+              example: 3
+            previousPage:
+              type: integer
+              description: null if current page is the first page
+              example: 1
+            firstPage:
+              type: integer
+              example: 1
+            lastPage:
+              type: integer
+              example: 20
+          required: [currentPage, currentLimit, firstPage, lastPage]
 headers:
-  $ref: '../library.openapi.yaml#/components/headers/ETag'            
+  $ref: '../library.openapi.yaml#/components/headers/ETag'
+links:
+  nextPage:
+    operationId: getRentedBooks
+    parameters:
+      page: '$response.body#/_metadata/nextPage'
+      limit: '$response.body#/_metadata/currentLimit'
+  previousPage:
+    operationId: getRentedBooks
+    parameters:
+      page: '$response.body#/_metadata/previousPage'
+      limit: '$response.body#/_metadata/currentLimit'
+  firstPage:
+    operationId: getRentedBooks
+    parameters:
+      page: '$response.body#/_metadata/firstPage'
+      limit: '$response.body#/_metadata/currentLimit'
+  lastPage:
+    operationId: getRentedBooks
+    parameters:
+      page: '$response.body#/_metadata/lastPage'
+      limit: '$response.body#/_metadata/currentLimit'
+  currentPage:
+    operationId: getRentedBooks
+    parameters:
+      page: '$response.body#/_metadata/currentPage'
+      limit: '$response.body#/_metadata/currentLimit'
+  returnBook:
+    operationId: returnABook
+    parameters: 
+      rentedBookId: '$response.body#/items/0/id'
+    description: replace `0` in `rentedBookId` parameter with response array index of the book to return
