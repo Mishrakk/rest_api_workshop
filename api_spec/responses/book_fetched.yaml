@@ -8,3 +8,5 @@ content:
         $ref: '../library.openapi.yaml#/components/examples/bookMatilda'
       bookTheCatInTheHat:
         $ref: '../library.openapi.yaml#/components/examples/bookTheCatInTheHat'
+headers:
+  $ref: '../library.openapi.yaml#/components/headers/ETag'        

@@ -39,9 +39,12 @@ paths:
         - $ref: '#/components/parameters/limit'
         - $ref: '#/components/parameters/sort'
         - $ref: '#/components/parameters/filter'
+        - $ref: '#/components/headers/If-None-Match'
       responses:
         200:
           $ref: '#/components/responses/rentedBooksFetched'
+        304:
+          $ref: '#/components/responses/notModified'
         default:
           $ref: '#/components/responses/default'
   /rented-books/{rentedBookId}:
@@ -53,11 +56,14 @@ paths:
         - OpenID: [user]
       parameters:
         - $ref: '#/components/parameters/rentedBookId'
+        - $ref: '#/components/headers/If-Match'
       responses:
         204:
           description: book returned
         404:
           $ref: '#/components/responses/notFound'
+        412:
+          $ref: '#/components/responses/preconditionFailed'
         default:
           $ref: '#/components/responses/default'
   /books:
@@ -71,9 +77,12 @@ paths:
         - $ref: '#/components/parameters/limit'
         - $ref: '#/components/parameters/sort'
         - $ref: '#/components/parameters/filter'
+        - $ref: '#/components/headers/If-None-Match'
       responses:
         200:
           $ref: '#/components/responses/booksFetched'
+        304:
+          $ref: '#/components/responses/notModified'
         default:
           $ref: '#/components/responses/default'
     post:
@@ -103,9 +112,12 @@ paths:
       security: []
       parameters:
         - $ref: '#/components/parameters/bookId'
+        - $ref: '#/components/headers/If-None-Match'
       responses:
         200:
           $ref: '#/components/responses/bookFetched'
+        304:
+          $ref: '#/components/responses/notModified'
         404:
           $ref: '#/components/responses/notFound'
         default:
@@ -139,6 +151,7 @@ paths:
         - $ref: '#/components/parameters/limit'
         - $ref: '#/components/parameters/sort'
         - $ref: '#/components/parameters/filter'
+        - $ref: '#/components/headers/If-None-Match'
       responses:
         200:
           $ref: '#/components/responses/allMediaItemsFetched'
@@ -178,6 +191,10 @@ components:
       $ref: './responses/rented_books_fetched.yaml'
     allMediaItemsFetched:
       $ref: './responses/all_media_items_fetched.yaml'
+    preconditionFailed:
+      $ref: './responses/precondition_failed.yaml'
+    notModified:
+      $ref: './responses/not_modified.yaml'
   parameters:
     bookId:
       $ref: './parameters/book_id.yaml'
@@ -198,3 +215,10 @@ components:
     OpenID:
       type: openIdConnect
       openIdConnectUrl: https://example.com/openid
+  headers:
+    ETag:
+      $ref: 'https://opensource.zalando.com/restful-api-guidelines/models/headers-1.0.0.yaml#/ETag'
+    If-Match:
+      $ref: 'https://opensource.zalando.com/restful-api-guidelines/models/headers-1.0.0.yaml#/If-Match'
+    If-None-Match:
+      $ref: 'https://opensource.zalando.com/restful-api-guidelines/models/headers-1.0.0.yaml#/If-None-Match'

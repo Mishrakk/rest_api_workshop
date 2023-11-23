@@ -23,3 +23,5 @@ content:
               available: true
               tags: ['children', 'funny', 'school']
               media_type: book
+headers:
+  $ref: '../library.openapi.yaml#/components/headers/ETag'

@@ -8,3 +8,5 @@ content:
           type: array
           items:
             $ref: '../library.openapi.yaml#/components/schemas/rentedBook'
+headers:
+  $ref: '../library.openapi.yaml#/components/headers/ETag'            

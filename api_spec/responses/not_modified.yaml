@@ -1,0 +1,3 @@
+description: not modified
+headers:
+  $ref: '../library.openapi.yaml#/components/headers/ETag'

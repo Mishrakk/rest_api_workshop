@@ -1,0 +1,5 @@
+description: default response
+content:
+  application/problem+json:
+    schema:
+      $ref: '../library.openapi.yaml#/components/schemas/problem'

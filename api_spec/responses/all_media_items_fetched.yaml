@@ -30,3 +30,5 @@ content:
               length: 111
               available: true
               media_type: dvd
+headers:
+  $ref: '../library.openapi.yaml#/components/headers/ETag'              
