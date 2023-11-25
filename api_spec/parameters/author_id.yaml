@@ -1,0 +1,8 @@
+name: authorId
+description: unique Id of an author
+in: path
+required: true
+schema:
+  type: string
+  format: uuid
+  example: 35f33ff7-45e4-42b0-ade9-315f0e00aa1b

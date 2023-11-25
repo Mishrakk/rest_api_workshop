@@ -1,0 +1,12 @@
+description: authors fetched
+content:
+  application/json:
+    schema:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '../library.openapi.yaml#/components/schemas/author'
+headers:
+  $ref: '../library.openapi.yaml#/components/headers/ETag'            

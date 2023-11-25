@@ -140,6 +140,22 @@ paths:
           $ref: '#/components/responses/notFound'
         default:
           $ref: '#/components/responses/default'
+  /books/{bookId}/authors:
+    get:
+      summary: Get book authors
+      operationId: getBookAuthors
+      tags: [bookCatalog, authors]
+      security: []
+      parameters:
+        - $ref: '#/components/parameters/bookId'
+        - $ref: '#/components/headers/If-None-Match'
+      responses:
+        200:
+          $ref: '#/components/responses/authorsFetched'
+        404:
+          $ref: '#/components/responses/notFound'
+        default:
+          $ref: '#/components/responses/default'
   /allMediaItems:
     get:
       summary: Get all media items in the library
@@ -157,6 +173,20 @@ paths:
           $ref: '#/components/responses/allMediaItemsFetched'
         default:
           $ref: '#/components/responses/default'
+  /authors/{authorId}:
+    get:
+      summary: Get author detail
+      operationId: getAuthor
+      tags: [authors]
+      security: []
+      parameters:
+        - $ref: '#/components/parameters/authorId'
+        - $ref: '#/components/headers/If-None-Match'
+      responses:
+        200:
+          $ref: '#/components/responses/authorFetched'
+        default:
+          $ref: '#/components/responses/default' 
 components:
   schemas:
     problem:
@@ -169,11 +199,15 @@ components:
       $ref: './schemas/dvd.yaml'
     rentedBook:
       $ref: './schemas/rented_book.yaml'
+    author:
+      $ref: './schemas/author.yaml'
   examples:
     bookMatilda:
       $ref: './examples/book_matilda.yaml'
     bookTheCatInTheHat:
       $ref: './examples/book_the_cat_in_the_hat.yaml'
+    authorRoaldDahl:
+      $ref: './examples/author_roald_dahl.yaml'
   responses:
     default:
       $ref: './responses/default.yaml'
@@ -195,11 +229,17 @@ components:
       $ref: './responses/precondition_failed.yaml'
     notModified:
       $ref: './responses/not_modified.yaml'
+    authorFetched:
+      $ref: './responses/author_fetched.yaml'
+    authorsFetched:
+      $ref: './responses/authors_fetched.yaml'
   parameters:
     bookId:
       $ref: './parameters/book_id.yaml'
     rentedBookId:
       $ref: './parameters/rented_book_id.yaml'
+    authorId:
+      $ref: './parameters/author_id.yaml'
     page:
       $ref: './parameters/page.yaml'
     limit:

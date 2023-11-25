@@ -1,0 +1,10 @@
+description: author fetched
+content:
+  application/json:
+    schema:
+      $ref: '../library.openapi.yaml#/components/schemas/author'
+    examples:
+      authorRoaldDahl:
+        $ref: '../library.openapi.yaml#/components/examples/authorRoaldDahl'
+headers:
+  $ref: '../library.openapi.yaml#/components/headers/ETag'        

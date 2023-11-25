@@ -1,0 +1,17 @@
+type: object
+description: author object
+properties:
+  id:
+    type: string
+    format: uuid
+    description: Unique author identifier
+    example: 1d875aab-84c8-4af2-8f65-63903b318bbc
+  name:
+    type: string
+    description: Author's name
+    example: Dr. Seuss
+  born:
+    type: string
+    format: date
+    description: Author's birthday
+    example: 1904-03-02
