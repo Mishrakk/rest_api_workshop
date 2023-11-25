@@ -1,0 +1,12 @@
+name: embed
+description: embed related resources to response
+in: query
+style: form
+explode: false
+schema:
+  type: array
+  items:
+    description: name of resource to embed. Content will appear in `_embedded` property
+    type: string
+    enum: [authors]
+example: authors

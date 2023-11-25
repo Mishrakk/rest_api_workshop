@@ -77,6 +77,7 @@ paths:
         - $ref: '#/components/parameters/limit'
         - $ref: '#/components/parameters/sort'
         - $ref: '#/components/parameters/filter'
+        - $ref: '#/components/parameters/bookEmbed'
         - $ref: '#/components/headers/If-None-Match'
       responses:
         200:
@@ -112,6 +113,7 @@ paths:
       security: []
       parameters:
         - $ref: '#/components/parameters/bookId'
+        - $ref: '#/components/parameters/bookEmbed'
         - $ref: '#/components/headers/If-None-Match'
       responses:
         200:
@@ -248,6 +250,8 @@ components:
       $ref: './parameters/sort.yaml'
     filter:
       $ref: './parameters/filter.yaml'
+    bookEmbed:
+      $ref: './parameters/book_embed.yaml'
   securitySchemes:
     BasicAuth:
       type: http

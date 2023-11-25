@@ -22,3 +22,10 @@ allOf:
           type: string
           enum: ['children', 'funny', 'school', 'animal']
         example: ['funny', 'animal']
+      _embedded:
+        type: object
+        properties:
+          authors:
+            type: array
+            items:
+              $ref: '../library.openapi.yaml#/components/schemas/author'
